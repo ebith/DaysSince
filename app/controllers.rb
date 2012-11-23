@@ -25,7 +25,7 @@ Dayssince.controllers  do
   get :index do
     @today = Date.today
     @tasks = Task.where(:uid => current_account.uid)
-    render :counter
+    render :index
   end
 
   get :login do
@@ -37,25 +37,44 @@ Dayssince.controllers  do
     task.uid = current_account.uid
     task.value = params[:task_name].force_encoding('UTF-8') # 日本語エラーでよる
     task.last_update = Time.now - params[:days_ago].to_i*24*60*60
-    result = task.save
-    added_task = Task.find(task.id)
-    @msg = {
-      :result => result ? 200 : 400,
-      :days_ago => '%03d' % (Date.today - added_task.last_update).to_i,
-      :task_name => added_task.value,
-    }.to_json
+    if task.save
+      added_task = Task.find(task.id)
+      @msg = {
+        :days_ago => '%03d' % (Date.today - added_task.last_update).to_i,
+        :task_name => added_task.value,
+        :task_id => added_task.id,
+      }.to_json
+    else
+      status 400
+    end
   end
 
-  get :update do
-
+  post :update do
+    task = Task.where(:uid => current_account.uid, :id => params[:task_id]).first
+    task.last_update = Date.today
+    if task.save
+      @msg = {
+        :task_id => task.id,
+      }.to_json
+    else
+      status 400
+    end
   end
 
-  get :delete do
+  post :delete do
+    task = Task.where(:uid => current_account.uid, :id => params[:task_id]).first
+    if task.destroy
+      @msg = {
+        :task_id => task.id,
+      }.to_json
+    else
+      status 400
+    end
   end
 
   get :logout do
     set_current_account(nil)
-    redirect url(:index)
+    redirect url(:login)
   end
 
   get :auth, :map => '/auth/:provider/callback' do
@@ -63,10 +82,5 @@ Dayssince.controllers  do
     account = Account.find_by_provider_and_uid(auth["provider"], auth["uid"]) || Account.create_with_omniauth(auth)
     set_current_account(account)
     redirect "http://" + request.env["HTTP_HOST"] + url(:index)
-  end
-end
-
-Dayssince.controllers :api do
-  get :index, :provides => :json do
   end
 end

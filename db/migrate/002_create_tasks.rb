@@ -1,9 +1,9 @@
 class CreateTasks < ActiveRecord::Migration
   def self.up
     create_table :tasks do |t|
-      t.string :uid, :null => false
-      t.string :value, :null => false
-      t.date :last_update, :null => false
+      t.string :uid
+      t.string :value
+      t.date :last_update
       t.timestamps
     end
   end

@@ -29,3 +29,4 @@ gem 'padrino', '0.10.7'
 
 gem 'thin'
 gem 'omniauth-twitter'
+gem 'redcarpet'

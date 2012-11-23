@@ -14,18 +14,18 @@
 ActiveRecord::Schema.define(:version => 2) do
 
   create_table "accounts", :force => true do |t|
-    t.string   "name",       :null => false
-    t.string   "uid",        :null => false
-    t.string   "role",       :null => false
-    t.string   "provider",   :null => false
+    t.string   "name"
+    t.string   "uid"
+    t.string   "role"
+    t.string   "provider"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
 
   create_table "tasks", :force => true do |t|
-    t.string   "uid",         :null => false
-    t.string   "value",       :null => false
-    t.date     "last_update", :null => false
+    t.string   "uid"
+    t.string   "value"
+    t.date     "last_update"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end

@@ -1,10 +1,10 @@
 class CreateAccounts < ActiveRecord::Migration
   def self.up
     create_table :accounts do |t|
-      t.string :name, :null => false
-      t.string :uid, :null => false
-      t.string :role, :null => false
-      t.string :provider, :null => false
+      t.string :name
+      t.string :uid
+      t.string :role
+      t.string :provider
       t.timestamps
     end
   end
