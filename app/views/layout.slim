@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    title Days Since
+    link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css'
+    script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'
+    script src='/bootstrap/js/bootstrap.min.js'
+    css:
+      td.button { text-align: right; }
+      .template { display: none; }
+    javascript:
+      $(function(){
+        var form = $('form#new_task');
+        $('a#submit', form).click(function(e){
+          var days_ago = $('input#days_ago').val();
+          var task_name = $('input#task_name').val();
+          $.ajax({
+            type: 'POST',
+            url: '/create',
+            data: {task_name: task_name, days_ago: days_ago},
+          }).done(function(msg){
+            var new_task = $('table.template tbody tr').first().clone();
+            new_task.children()[0].textContent = JSON.parse(msg).days_ago + ' 日前'
+            new_task.children()[1].textContent = JSON.parse(msg).task_name
+            $('table#tasks tbody tr', form).last().last().before(new_task);
+            form[0].reset();
+          });
+          e.preventDefault();
+        })
+        form.submit(function(){ return false; })
+      });
+
+  body
+    div class='container-fluid'
+      div class='row-fluid'
+        div class='span1'
+        div class='span10'
+          h1 Days Since
+          ==yield
+        div class='span1'

@@ -1,0 +1,39 @@
+
+- unless @tasks.empty?
+  form.form-inline#new_task
+    table.table.table-hover#tasks
+      - for task in @tasks do
+        tr
+          - task.last_update = @today - task.last_update
+          td.last_update
+            = '%03d' % task.last_update.to_i
+            | 日前
+          td.name = task.value
+          td.button
+            div.btn-group
+              a.btn.btn-success href="#"
+                i.icon-refresh.icon-white.count_up
+            div.btn-group
+              a.btn.btn-danger href="#"
+                i.icon-remove.icon-white.delete
+      == partial :add_form
+- else
+  form.form-inline#new_task
+    table.table.table-hover#tasks
+      == partial :add_form
+
+p
+  a href='/logout' Logout
+
+table.table.table-hover.template
+  tr
+    td.last_update
+    td.name
+    td.button
+      div.btn-group
+        a.btn.btn-success href="#"
+          i.icon-refresh.icon-white.count_up
+      div.btn-group
+        a.btn.btn-danger href="#"
+          i.icon-remove.icon-white.delete
+
