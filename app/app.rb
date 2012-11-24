@@ -61,7 +61,7 @@ class Dayssince < Padrino::Application
   # }}}
 
   use OmniAuth::Builder do
-    provider :twitter,  '575k5Wp4YvLtvVynb8wQ8g', 'dKb07QkkrlNMb5zfRRHVMkzzYgBIlzM0eed008mmbE'
+    provider :twitter,  ENV['DAYSSINCE_CONSUMER_KEY'], ENV['DAYSSINCE_CONSUMER_SECRET']
   end
 
   set :login_page, '/login'
