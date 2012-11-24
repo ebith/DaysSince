@@ -1,13 +1,19 @@
 doctype html
 html
   head
+    meta name='viewport' content='width=device-width, initial-scale=1.0'
     title Days Since
     link rel='stylesheet' href='/bootstrap/css/bootstrap.min.css'
+    link rel='stylesheet' href='/bootstrap/css/bootstrap-responsive.min.css'
     script src='//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js'
     script src='/bootstrap/js/bootstrap.min.js'
     script src='/javascripts/main.js'
     css:
-      td.button { text-align: right; }
+      td.lastupdate { white-space: nowrap; }
+      td.button {
+        text-align: right;
+        white-space: nowrap;
+        }
       div#template { display: none; }
 
   body
