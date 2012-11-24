@@ -1,5 +1,5 @@
 # Days Since
-  ![](public/images/sample.png)  
+  ![](https://raw.github.com/ebith/DaysSince/master/public/images/sample.png)
   「あれやってから何日経ったっけ」みたいなのを管理します。  
   [Days Since | Leancode](http://leancode.com/dayssince/ "Days Since | Leancode")のコピーです。
 
